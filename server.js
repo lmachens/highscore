@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const { initDb } = require("./lib/database");
-const { addHighscore, getHighscores } = require("./lib/highscore");
+const router = require("./lib/router");
 
 // Connection URL
 const url = process.env.MONGO_URL;
@@ -17,16 +17,7 @@ app.get("/", async (request, response) => {
   response.send("Highscores");
 });
 
-app.get("/api/highscores", async (request, response) => {
-  const highscores = await getHighscores();
-  response.json(highscores);
-});
-
-app.post("/api/highscores", async (request, response) => {
-  const highscore = request.body;
-  await addHighscore(highscore);
-  response.json();
-});
+app.use("/api", router);
 
 initDb(url, dbName).then(() => {
   console.log("Database initialized");
