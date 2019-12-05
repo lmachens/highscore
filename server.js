@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const { initDb, getCollection } = require("./lib/database");
+const { initDb } = require("./lib/database");
 const { addHighscore, getHighscores } = require("./lib/highscore");
 
 // Connection URL
